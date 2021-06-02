@@ -29,6 +29,6 @@ public class Report{
     }
 
     public void incrementCount(){
-        this.count += 1;
+        this.count++;
     }
 }

@@ -8,19 +8,15 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import sample.logic.PersonaException;
 import sample.logic.entities.Persona;
-import sample.logic.entities.ProfessionEnum;
-import sample.logic.persistence.impl.PersonaPersistence;
 import sample.logic.services.IPersonaServices;
 import sample.logic.services.impl.PersonaService;
 
 import java.io.File;
-import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 

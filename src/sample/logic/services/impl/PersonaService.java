@@ -1,11 +1,8 @@
 package sample.logic.services.impl;
 
 import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-import sample.logic.PersonaException;
 import sample.logic.entities.Exportable;
 import sample.logic.entities.Persona;
-import sample.logic.entities.ProfessionEnum;
 import sample.logic.persistence.IExport;
 import sample.logic.persistence.IPersonaPersistence;
 import sample.logic.persistence.impl.Export;

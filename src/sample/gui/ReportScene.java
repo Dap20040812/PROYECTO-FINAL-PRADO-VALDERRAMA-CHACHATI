@@ -9,6 +9,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import sample.logic.entities.Persona;
 import sample.logic.entities.Report;
 import sample.logic.services.IReportServices;
 import sample.logic.services.impl.ReportServices;
@@ -32,7 +33,7 @@ public class ReportScene {
         stage = new Stage();
 
         setUp();
-        //behavior(stage);
+        behavior(stage);
 
         stage.setTitle("Report");
         stage.setScene(scene);
@@ -47,30 +48,28 @@ public class ReportScene {
         scene = new Scene(layout, 200, 200);
     }
 
-    /*private void behavior(Stage stage) {
+    private void behavior(Stage stage) {
 
         this.reportServices = new ReportServices();
-        Map<String, Report> reportPersonasByProfession = this.reportServices.getReportPersonasByProfession();
-        Report victims = this.reportServices.getCountOfVictims();
+        reportTable.setItems((ObservableList<Report>) this.reportServices.getReportPersonasByRole());
 
-        reportTable.setItems((ObservableList<Report>) reportPersonasByProfession.values());
-
-    }*/
+    }
 
     private void setUpTableReport() {
 
-        // Profession Name
-        TableColumn<Report, String> professionNameColumn = new TableColumn<>();
-        professionNameColumn.setMaxWidth(200);
-        professionNameColumn.setCellValueFactory(new PropertyValueFactory("criteria"));
+        // Role Name
+
+        TableColumn<Report, String> RoleNameColumn = new TableColumn<>("Rol");
+        RoleNameColumn.setMaxWidth(200);
+        RoleNameColumn.setCellValueFactory(new PropertyValueFactory<>("criteria"));
 
         // Count
-        TableColumn<Report, Integer> countColumn = new TableColumn<>();
+        TableColumn<Report, Integer> countColumn = new TableColumn<>("Count");
         countColumn.setMaxWidth(200);
-        countColumn.setCellValueFactory(new PropertyValueFactory("count"));
+        countColumn.setCellValueFactory(new PropertyValueFactory<>("count"));
 
         reportTable = new TableView<>();
-        reportTable.getColumns().addAll(professionNameColumn, countColumn);
+        reportTable.getColumns().addAll(RoleNameColumn, countColumn);
 
     }
 }
