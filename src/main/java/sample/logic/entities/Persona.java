@@ -35,6 +35,7 @@ public class Persona extends Exportable implements Serializable {
     public String getLastName() {
         return lastName;
     }
+    public void setLastName(String lastName1){this.lastName = lastName1;}
 
     public String getRole() {
         return role;

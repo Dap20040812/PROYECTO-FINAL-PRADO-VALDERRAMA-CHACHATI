@@ -1,6 +1,7 @@
 package sample.logic.services.impl;
 
 import javafx.collections.FXCollections;
+import sample.gui.BasicScene;
 import sample.logic.entities.*;
 import sample.logic.services.IPersonaServices;
 import sample.logic.services.IReportServices;
@@ -10,12 +11,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class ReportServices implements IReportServices {
+public class ReportServices implements IReportServices{
 
     private IPersonaServices personasService;
 
     public ReportServices() {
-        personasService = new PersonaService();
+        personasService = BasicScene.personaServices;
     }
 
     public List<Report> getReportPersonasByRole() {
@@ -27,8 +28,8 @@ public class ReportServices implements IReportServices {
     public List<Report> getReportPersonasByRole(List<Persona> personas) {
 
         List<Report> reports = FXCollections.observableArrayList();
-
-        reports.add(new Report(Roles.ROLE1_PROTESTANTE, 0, String.format("Report of count of personas in profession %s", Roles.ROLE1_PROTESTANTE)));
+        Report g;
+        reports.add(g = new Report(Roles.ROLE1_PROTESTANTE, 0, String.format("Report of count of personas in profession %s", Roles.ROLE1_PROTESTANTE)));
         reports.add(new Report(Roles.ROLE2_PROTESTANTE, 0, String.format("Report of count of personas in profession %s", Roles.ROLE2_PROTESTANTE)));
         reports.add(new Report(Roles.ROLE_POLITICO, 0, String.format("Report of count of personas in profession %s", Roles.ROLE_POLITICO)));
         reports.add(new Report(Roles.ROLE_AGENTES_DE_LA_LEY, 0, String.format("Report of count of personas in profession %s", Roles.ROLE_AGENTES_DE_LA_LEY)));
@@ -62,12 +63,5 @@ public class ReportServices implements IReportServices {
 
     }
 
-    /*public Report getCountOfVictims() {
-
-        List<Persona> personas = personasService.getAll();
-        int numOfVictims = (int)personas.stream().filter(p -> p.isVictim()).count();
-
-        return new Report("Victims", numOfVictims, "This is the number of victims during the strikes");
-    }*/
 
 }
