@@ -2,10 +2,8 @@ package sample.gui;
 
 import javafx.application.Application;
 import javafx.collections.ObservableList;
-import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.Button;
@@ -19,7 +17,6 @@ import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
@@ -28,22 +25,19 @@ import sample.logic.PersonaException;
 import sample.logic.entities.Persona;
 import sample.logic.entities.Roles;
 import sample.logic.services.IPersonaServices;
-import sample.logic.services.IReportServices;
 import sample.logic.services.impl.PersonaService;
 import javafx.scene.image.Image;
 import javafx.scene.control.Label;
 
-import javax.swing.*;
-import java.awt.*;
-import java.awt.image.ImageObserver;
-import java.awt.image.ImageProducer;
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.InputStream;
-import java.net.URL;
+
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
+
+import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.Map;
+
 
 import static javafx.scene.control.cell.ComboBoxTableCell.forTableColumn;
 
@@ -82,6 +76,7 @@ public class BasicScene extends Application {
     private Label description1;
     private Label description2;
     private Label photo;
+    private MediaPlayer mediaPlayer;
 
 
 
@@ -169,6 +164,11 @@ public class BasicScene extends Application {
         });
         view.setOnAction(e -> {
 
+
+            String s = "22.mp3";
+            Media h = new Media(Paths.get(s).toUri().toString());
+            mediaPlayer = new MediaPlayer(h);
+            mediaPlayer.stop();
             name2.setText(personasTable.getSelectionModel().getSelectedItem().getName());
             lastname2.setText(personasTable.getSelectionModel().getSelectedItem().getLastName());
             age2.setText(personasTable.getSelectionModel().getSelectedItem().getAge());
@@ -176,6 +176,11 @@ public class BasicScene extends Application {
             role2.setText(personasTable.getSelectionModel().getSelectedItem().getRole());
             status2.setText(personasTable.getSelectionModel().getSelectedItem().getStatus());
             description2.setText(personasTable.getSelectionModel().getSelectedItem().getDescription());
+            if(personasTable.getSelectionModel().getSelectedItem().getRole().equals("Comunista"))
+            {
+                mediaPlayer.setVolume(1);
+                mediaPlayer.play();
+            }
 
         });
         apply.setOnAction(e -> {
@@ -250,7 +255,7 @@ public class BasicScene extends Application {
         HBox hBix = new HBox();
         hBix.setPadding(new Insets(10, 30, 10, 10));
         hBix.setSpacing(10);
-        hBix.getChildren().addAll(addPersona,deletePersona,view,Edit,apply);
+        hBix.getChildren().addAll(addPersona,deletePersona,view,openReport,Edit,apply);
 
         VBox hBex = new VBox();
         hBex.setPadding(new Insets(10, 10, 10, 10));
@@ -280,6 +285,10 @@ public class BasicScene extends Application {
 
         //Scene
         scene = new Scene(layout2, 400, 400);
+
+
+
+
     }
 
     private void setUpCrud() {
@@ -319,10 +328,12 @@ public class BasicScene extends Application {
         apply.setFont(new Font("Impact",20));
         apply.setOpacity(0);
 
-
-
         openReport = new Button("Open Report");
         openReport.setMinWidth(90);
+        openReport.setMinWidth(50);
+        openReport.setMinHeight(30);
+        openReport.setBackground(background1);
+        openReport.setFont(new Font("Impact",20));
     }
     private void setImage()  {
 
@@ -331,6 +342,13 @@ public class BasicScene extends Application {
         imageView = new ImageView(image);
         photo = new Label();
         photo.setGraphic(imageView);
+        photo.setBorder(new Border(new BorderStroke(Color.GOLD,
+                BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
+
+
+
+
+
 
     }
 
@@ -480,6 +498,7 @@ public class BasicScene extends Application {
 
     }
     private void setupInputs() {
+
         nameInput = new TextField();
         nameInput.setPromptText("name");
         nameInput.setMinWidth(10);
@@ -517,55 +536,60 @@ public class BasicScene extends Application {
 
         //Name column
         TableColumn<Persona, String> nameColumn = new TableColumn<>("Name");
-        nameColumn.setMaxWidth(200);
+        nameColumn.setMinWidth(100);
+        nameColumn.setMaxWidth(700);
         nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
         nameColumn.setCellFactory(TextFieldTableCell.forTableColumn());
-        nameColumn.setStyle("-fx-background-color: Gold");
+        nameColumn.setStyle("-fx-background-color: rgba(255,255,000,0.7); -fx-border-width: 1; -fx-border-color: Black;");
 
 
         //Name column
         TableColumn<Persona, String> lastNameColumn = new TableColumn<>("LastName");
-        lastNameColumn.setMaxWidth(200);
+        lastNameColumn.setMinWidth(100);
+        lastNameColumn.setMaxWidth(700);
         lastNameColumn.setCellValueFactory(new PropertyValueFactory<>("lastName"));
         lastNameColumn.setCellFactory(TextFieldTableCell.forTableColumn());
-        lastNameColumn.setStyle("-fx-background-color: Goldenrod");
+        lastNameColumn.setStyle("-fx-background-color: rgba(250,210,001,0.7);-fx-border-width: 1; -fx-border-color: Black;");
 
         //Name column
         TableColumn<Persona, String> ageColumn = new TableColumn<>("Age");
+        ageColumn.setMinWidth(80);
         ageColumn.setMaxWidth(200);
         ageColumn.setCellValueFactory(new PropertyValueFactory<>("age"));
         ageColumn.setCellFactory(TextFieldTableCell.forTableColumn());
-        ageColumn.setStyle("-fx-background-color: Gold");
+        ageColumn.setStyle("-fx-background-color: rgba(255,255,000,0.7); -fx-border-width: 1; -fx-border-color: Black;");
 
 
         TableColumn<Persona, String> professionColumn = new TableColumn<>("Profession");
         professionColumn.setMaxWidth(700);
         professionColumn.setCellValueFactory(new PropertyValueFactory<>("profession"));
         professionColumn.setCellFactory(TextFieldTableCell.forTableColumn());
-        professionColumn.setStyle("-fx-background-color: Goldenrod");
+        professionColumn.setStyle("-fx-background-color: rgba(250,210,001,0.7);-fx-border-width: 1; -fx-border-color: Black;");
 
         TableColumn<Persona, String> roleColumn = new TableColumn<>("Role");
         roleColumn.setMaxWidth(700);
         roleColumn.setCellValueFactory(new PropertyValueFactory<>("role"));
         roleColumn.setCellFactory(ComboBoxTableCell.forTableColumn("Protestante-Civil","Protestante-Activista","Politico","Agentes de la ley","Comunista"));
-        roleColumn.setStyle("-fx-background-color: Gold");
+        roleColumn.setStyle("-fx-background-color: rgba(255,255,000,0.7); -fx-border-width: 1; -fx-border-color: Black;");
 
         TableColumn<Persona, String> statusColumn = new TableColumn<>("Status");
         statusColumn.setMaxWidth(700);
         statusColumn.setCellValueFactory(new PropertyValueFactory<>("status"));
         statusColumn.setCellFactory(ComboBoxTableCell.forTableColumn("Muerto","Vivo","Herido","Invalido como miguel"));
-        statusColumn.setStyle("-fx-background-color: Goldenrod");
+        statusColumn.setStyle("-fx-background-color: rgba(255,255,000,0.7);-fx-border-width: 1; -fx-border-color: Black;");
 
         TableColumn<Persona, String> descriptionColumn = new TableColumn<>("Description");
         descriptionColumn.setMaxWidth(700);
         descriptionColumn.setCellValueFactory(new PropertyValueFactory<>("description"));
         descriptionColumn.setCellFactory(TextFieldTableCell.forTableColumn());
-        descriptionColumn.setStyle("-fx-background-color: Gold");
+        descriptionColumn.setStyle("-fx-background-color: rgba(255,255,000,0.7); -fx-border-width: 1; -fx-border-color: Black;");
 
 
         //Table
         personasTable = new TableView<>();
-        personasTable.getColumns().addAll(nameColumn, lastNameColumn, ageColumn,professionColumn,roleColumn,statusColumn,descriptionColumn);
+        personasTable.setStyle("-fx-selection-bar: Black; -fx-selection-bar-non-focused: Gray; -fx-background-color: Gold; -fx-padding: 5;-fx-font-weight:bold; -fx-font-size:15px;" +
+                "    -fx-font-size:15px;");
+        personasTable.getColumns().addAll(nameColumn, lastNameColumn,ageColumn);
 
     }
 

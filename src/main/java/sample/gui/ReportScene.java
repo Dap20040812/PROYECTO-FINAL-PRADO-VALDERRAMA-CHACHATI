@@ -53,14 +53,20 @@ public class ReportScene {
     private void setUp() {
 
         setUpTableReport();
+        setText();
         BackgroundFill background_fill = new BackgroundFill(Color.BLACK,
                 CornerRadii.EMPTY, Insets.EMPTY);
 
         Background background = new Background(background_fill);
+
         HBox hBox = new HBox();
+        hBox.setPadding(new Insets(10, 10, 10, 10));
+        hBox.setSpacing(10);
+        hBox.getChildren().addAll(Rol1,Rol2,Rol3,Rol4,Rol5);
+
 
         VBox layout = new VBox(10);
-        layout.getChildren().add(reportTable);
+        layout.getChildren().add(hBox);
         layout.setBackground(background);
 
         scene = new Scene(layout, 200, 200);
