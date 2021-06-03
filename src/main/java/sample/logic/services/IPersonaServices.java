@@ -23,4 +23,6 @@ public interface IPersonaServices {
 
     List<Persona> importPersonas(File file) throws Exception;
 
+    void update(String name , String LastName , String age, String profession , String role , String status , String description, Persona persona) throws PersonaException;
+
 }

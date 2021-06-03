@@ -1,6 +1,7 @@
 package sample.logic.services.impl;
 
 import javafx.collections.FXCollections;
+import sample.logic.PersonaException;
 import sample.logic.entities.Exportable;
 import sample.logic.entities.Persona;
 import sample.logic.persistence.IExport;
@@ -72,5 +73,17 @@ public class PersonaService implements IPersonaServices {
         }
 
         return importedPersonas;
+    }
+
+    @Override
+    public void update(String name , String LastName , String age, String profession , String role , String status , String description, Persona persona) throws PersonaException {
+
+        persona.setName(name);
+        persona.setProfession(profession);
+        persona.setLastName(LastName);
+        persona.setAge(age);
+        persona.setRole(role);
+        persona.setStatus(status);
+        persona.setDescription(description);
     }
 }

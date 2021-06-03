@@ -76,6 +76,8 @@ public class BasicScene extends Application {
     private Label description1;
     private Label description2;
     private Label photo;
+    private Label photo1;
+    private Label photo2;
     private MediaPlayer mediaPlayer;
 
 
@@ -89,11 +91,14 @@ public class BasicScene extends Application {
     private Button addPersona;
     private Button deletePersona;
     private Button openReport;
+    private Button update;
     private Button Edit;
     private Button apply;
     private Button view;
     private StackPane group;
     private ImageView imageView;
+    private ImageView imageView1;
+    private ImageView imageView2;
 
     // Menu
     private MenuBar menuBar;
@@ -143,6 +148,7 @@ public class BasicScene extends Application {
                 lastNameInput.clear();
                 ageInput.clear();
                 professionInput.clear();
+                descriptionInput.clear();
             } catch (PersonaException personaException) {
                 personaException.printStackTrace();
             }
@@ -153,15 +159,6 @@ public class BasicScene extends Application {
             this.personaServices.delete(personasTable.getSelectionModel().getSelectedItems());
         });
 
-        Edit.setOnAction(e -> {
-
-            personasTable.setEditable(true);
-            apply.setOpacity(100);
-            addPersona.setOpacity(0);
-            deletePersona.setOpacity(0);
-
-
-        });
         view.setOnAction(e -> {
 
 
@@ -183,12 +180,37 @@ public class BasicScene extends Application {
             }
 
         });
+
+        update.setOnAction(e -> {
+
+            nameInput.setText(personasTable.getSelectionModel().getSelectedItem().getName());
+            lastNameInput.setText(personasTable.getSelectionModel().getSelectedItem().getLastName());
+            ageInput.setText(personasTable.getSelectionModel().getSelectedItem().getAge());
+            professionInput.setText(personasTable.getSelectionModel().getSelectedItem().getProfession());
+            descriptionInput.setText(personasTable.getSelectionModel().getSelectedItem().getDescription());
+            apply.setOpacity(100);
+            addPersona.setOpacity(0);
+            deletePersona.setOpacity(0);
+            view.setOpacity(0);
+
+
+        });
         apply.setOnAction(e -> {
 
-            personasTable.setEditable(false);
+            try {
+                personaServices.update(nameInput.getText(),lastNameInput.getText(),ageInput.getText(),professionInput.getText(),roleInput.getValue(),statusInput.getValue(),descriptionInput.getText(),personasTable.getSelectionModel().getSelectedItem());
+            } catch (PersonaException personaException) {
+                personaException.printStackTrace();
+            }
             apply.setOpacity(0);
             addPersona.setOpacity(100);
             deletePersona.setOpacity(100);
+            view.setOpacity(100);
+            nameInput.clear();
+            lastNameInput.clear();
+            ageInput.clear();
+            professionInput.clear();
+            descriptionInput.clear();
 
 
         });
@@ -255,23 +277,32 @@ public class BasicScene extends Application {
         HBox hBix = new HBox();
         hBix.setPadding(new Insets(10, 30, 10, 10));
         hBix.setSpacing(10);
-        hBix.getChildren().addAll(addPersona,deletePersona,view,openReport,Edit,apply);
+        hBix.getChildren().addAll(addPersona,deletePersona,view,openReport,update,apply);
 
         VBox hBex = new VBox();
         hBex.setPadding(new Insets(10, 10, 10, 10));
         hBex.setSpacing(10);
         hBex.getChildren().addAll(name,lastname,age,profession,role,status,description);
 
+        HBox hBqx = new HBox();
+        hBqx.setPadding(new Insets(80, 0, 0, 30));
+        hBqx.setSpacing(10);
+        hBqx.getChildren().addAll(imageView2);
+
         HBox hBbx = new HBox();
         hBbx.setPadding(new Insets(0, 0, 0, 0));
         hBbx.setSpacing(10);
-        hBbx.getChildren().addAll(hBex,hBox);
+        hBbx.getChildren().addAll(hBex,hBox,hBqx);
 
+        VBox hBlx = new VBox();
+        hBlx.setPadding(new Insets(80, 0, 0, 0));
+        hBlx.setSpacing(10);
+        hBlx.getChildren().addAll(photo1);
 
         VBox hBkx = new VBox();
         hBkx.setPadding(new Insets(0, 0, 0, 0));
         hBkx.setSpacing(10);
-        hBkx.getChildren().addAll(hBbx,hBix);
+        hBkx.getChildren().addAll(hBbx,hBix,hBlx);
 
         //Layout
         HBox layout = new HBox(10);
@@ -329,21 +360,35 @@ public class BasicScene extends Application {
         apply.setOpacity(0);
 
         openReport = new Button("Open Report");
-        openReport.setMinWidth(90);
         openReport.setMinWidth(50);
         openReport.setMinHeight(30);
         openReport.setBackground(background1);
         openReport.setFont(new Font("Impact",20));
+
+        update = new Button("Update");
+        update.setMinWidth(50);
+        update.setMinHeight(30);
+        update.setBackground(background1);
+        update.setFont(new Font("Impact",20));
     }
     private void setImage()  {
 
 
         Image image = new Image("/2.png");
+        Image image1 = new Image("/3.png");
+        Image image2 = new Image("/12.gif");
         imageView = new ImageView(image);
+        imageView1 = new ImageView(image1);
+        imageView2 = new ImageView(image2);
         photo = new Label();
         photo.setGraphic(imageView);
         photo.setBorder(new Border(new BorderStroke(Color.GOLD,
                 BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
+        photo1 = new Label();
+        photo1.setGraphic(imageView1);
+
+
+
 
 
 

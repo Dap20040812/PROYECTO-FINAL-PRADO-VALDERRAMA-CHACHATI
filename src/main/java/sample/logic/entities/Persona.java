@@ -49,6 +49,26 @@ public class Persona extends Exportable implements Serializable {
         return status;
     }
 
+    public void setProfession(String profession) {
+        this.profession = profession;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
     public void setAge(String ageInput) throws PersonaException {
         try {
             int age = Integer.parseInt(ageInput);

@@ -7,9 +7,18 @@ import java.util.Map;
 
 public interface IReportServices {
 
-    public List<Report> getReportPersonasByRole();
-    public List<Report> getReportPersonasByRole(List<Persona> personas);
+    List<Report> getReportPersonasByRole();
+    List<Report> getReportPersonasByRole(List<Persona> personas);
 
-    /*public Report getCountOfVictims();*/
+    List<Report> getReportPersonasByStatusDead();
+    List<Report> getReportPersonasByStatusDead(List<Persona> personas);
+
+    List<Report> getReportPersonasByStatusHerido();
+    List<Report> getReportPersonasByStatusHerido(List<Persona> personas);
+
+    List<Report> getReportPersonasByAge();
+    List<Report> getReportPersonasByAge(List<Persona> personas);
+
+
 
 }
