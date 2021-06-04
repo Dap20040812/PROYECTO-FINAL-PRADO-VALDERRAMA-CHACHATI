@@ -1,5 +1,6 @@
 package sample.logic.entities;
 
+import javafx.scene.image.Image;
 import sample.logic.PersonaException;
 
 import java.io.Serializable;
@@ -16,14 +17,16 @@ public class Persona extends Exportable implements Serializable {
     private String role;
     private String status;
     private String description;
+    private String photo;
 
-    public Persona(String name, String lastName, String age, String profession, String role, String status, String description) throws PersonaException {
+    public Persona(String name, String lastName, String age, String profession, String role, String status, String description, String photo) throws PersonaException {
         this.name = name;
         this.lastName = lastName;
         this.profession = profession;
         this.role = role;
         this.status = status;
         this.description = description;
+        this.photo = photo;
         this.setAge(age);
     }
 
@@ -55,6 +58,14 @@ public class Persona extends Exportable implements Serializable {
 
     public void setRole(String role) {
         this.role = role;
+    }
+
+    public String getPhoto() {
+        return photo;
+    }
+
+    public void setPhoto(String photo) {
+        this.photo = photo;
     }
 
     public void setDescription(String description) {
@@ -94,7 +105,7 @@ public class Persona extends Exportable implements Serializable {
     @Override
     public String toString() {
 
-        return String.format("Name = %s, LastName = %s, Age = %s, Profession = %s, Role = %s, Status = %s, Description = %s", this.name, this.lastName, this.age, this.profession,this.role,this.status,this.description);
+        return String.format("Name = %s, LastName = %s, Age = %s, Profession = %s, Role = %s, Status = %s, Description = %s, Photo = %s", this.name, this.lastName, this.age, this.profession,this.role,this.status,this.description,this.photo);
     }
 
     @Override
@@ -107,6 +118,7 @@ public class Persona extends Exportable implements Serializable {
         result.add(this.role);
         result.add(this.status);
         result.add(this.description);
+        result.add(this.photo);
 
         return result;
     }
@@ -114,6 +126,6 @@ public class Persona extends Exportable implements Serializable {
     @Override
     public String getHeader() {
 
-        return "name,LastName,age,profession,role,status,description";
+        return "name,LastName,age,profession,role,status,description,photo";
     }
 }

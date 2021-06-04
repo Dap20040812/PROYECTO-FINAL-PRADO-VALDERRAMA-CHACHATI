@@ -14,7 +14,7 @@ public class Export implements IExport {
     @Override
     public void export(List<Exportable> exportable, Character separateValue) throws Exception {
         LocalDate now = LocalDate.now();
-        String fileName = String.format("export-%s-%s-%s.%s", now.getYear(), now.getMonth(), now.getDayOfMonth(), Exportable.getExtension(separateValue));
+        String fileName = String.format("directorio-%s-%s-%s.%s", now.getYear(), now.getMonth(), now.getDayOfMonth(), Exportable.getExtension(separateValue));
         FileOutputStream out = new FileOutputStream(fileName);
         PrintWriter pw = new PrintWriter(out);
 

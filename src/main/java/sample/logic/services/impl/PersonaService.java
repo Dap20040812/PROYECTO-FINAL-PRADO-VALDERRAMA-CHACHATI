@@ -23,16 +23,15 @@ public class PersonaService implements IPersonaServices {
 
     public PersonaService() throws IOException, ClassNotFoundException {
         this.personas = FXCollections.observableArrayList();
-        personaPersistence = new PersonaPersistence();
+        /*personaPersistence = new PersonaPersistence();
         this.personas = personaPersistence.read("BaseDeDatos.MJD");
 
         try {
             this.personaPersistence = new PersonaPersistence();
             this.export = new Export();
-            //this.personas.addAll(this.personaPersistence.read());
         } catch (IOException e) {
             e.printStackTrace();
-        }
+        }*/
     }
 
     @Override
@@ -76,7 +75,7 @@ public class PersonaService implements IPersonaServices {
 
         for (String line : read) {
             String[] tokens = line.split(Exportable.CSV.toString());
-            Persona persona = new Persona(tokens[0], tokens[1], tokens[2], tokens[3],tokens[4],tokens[5],tokens[6]);
+            Persona persona = new Persona(tokens[0], tokens[1], tokens[2], tokens[3],tokens[4],tokens[5],tokens[6],tokens[7]);
             importedPersonas.add(persona);
             this.insert(persona);
         }

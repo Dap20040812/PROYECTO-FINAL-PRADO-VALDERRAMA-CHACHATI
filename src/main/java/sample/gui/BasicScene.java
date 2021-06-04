@@ -80,6 +80,9 @@ public class BasicScene extends Application {
     private Label photo1;
     private Label photo2;
     private MediaPlayer mediaPlayer;
+    private String imageurl ="/1.png";
+    private String imageurl1 ="/1.png";
+
 
 
 
@@ -97,6 +100,7 @@ public class BasicScene extends Application {
     private Button Edit;
     private Button apply;
     private Button view;
+    private Button addImage;
     private StackPane group;
     private ImageView imageView;
     private ImageView imageView1;
@@ -135,7 +139,7 @@ public class BasicScene extends Application {
 
             try {
 
-                Persona p = new Persona(nameInput.getText(), lastNameInput.getText(), ageInput.getText(),professionInput.getText(),roleInput.getValue(),statusInput.getValue(),descriptionInput.getText());
+                Persona p = new Persona(nameInput.getText(), lastNameInput.getText(), ageInput.getText(),professionInput.getText(),roleInput.getValue(),statusInput.getValue(),descriptionInput.getText(),imageurl1);
                 this.personaServices.insert(p);
                 nameInput.clear();
                 lastNameInput.clear();
@@ -166,6 +170,8 @@ public class BasicScene extends Application {
             role2.setText(personasTable.getSelectionModel().getSelectedItem().getRole());
             status2.setText(personasTable.getSelectionModel().getSelectedItem().getStatus());
             description2.setText(personasTable.getSelectionModel().getSelectedItem().getDescription());
+            imageurl = imageurl1;
+            photo.setGraphic(new ImageView(imageurl));
             if(personasTable.getSelectionModel().getSelectedItem().getRole().equals("Comunista"))
             {
                 mediaPlayer.setVolume(1);
@@ -185,6 +191,7 @@ public class BasicScene extends Application {
             addPersona.setOpacity(0);
             deletePersona.setOpacity(0);
             view.setOpacity(0);
+            update.setOpacity(0);
 
 
         });
@@ -239,6 +246,17 @@ public class BasicScene extends Application {
         openReport.setOnAction(e -> {
             new ReportScene();
         });
+
+        addImage.setOnAction(e -> {
+            FileChooser fileChooser = new FileChooser();
+            fileChooser.setTitle("Select image file");
+            File file = fileChooser.showOpenDialog(stage);
+            if (file == null) {
+                System.out.println("No file");
+            } else {
+                imageurl1 = file.toURI().toString();
+            }
+        });
     }
 
     private void setUp() {
@@ -273,7 +291,7 @@ public class BasicScene extends Application {
         HBox hBix = new HBox();
         hBix.setPadding(new Insets(10, 30, 10, 10));
         hBix.setSpacing(10);
-        hBix.getChildren().addAll(addPersona,deletePersona,view,openReport,update,apply);
+        hBix.getChildren().addAll(addPersona,deletePersona,view,openReport,update,addImage,apply);
 
         VBox hBex = new VBox();
         hBex.setPadding(new Insets(10, 10, 10, 10));
@@ -366,11 +384,17 @@ public class BasicScene extends Application {
         update.setMinHeight(30);
         update.setBackground(background1);
         update.setFont(new Font("Impact",20));
+
+        addImage = new Button("AddImage");
+        addImage.setMinWidth(50);
+        addImage.setMinHeight(30);
+        addImage.setBackground(background1);
+        addImage.setFont(new Font("Impact",20));
     }
     private void setImage()  {
 
 
-        Image image = new Image("/2.png");
+        Image image = new Image(imageurl);
         Image image1 = new Image("/3.png");
         Image image2 = new Image("/12.gif");
         imageView = new ImageView(image);
