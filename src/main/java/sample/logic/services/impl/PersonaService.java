@@ -1,6 +1,7 @@
 package sample.logic.services.impl;
 
 import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import sample.logic.PersonaException;
 import sample.logic.entities.Exportable;
 import sample.logic.entities.Persona;
@@ -20,8 +21,11 @@ public class PersonaService implements IPersonaServices {
     private IExport export;
     private List<Persona> personas;
 
-    public PersonaService() {
+    public PersonaService() throws IOException, ClassNotFoundException {
         this.personas = FXCollections.observableArrayList();
+        personaPersistence = new PersonaPersistence();
+        this.personas = personaPersistence.read("BaseDeDatos.MJD");
+
         try {
             this.personaPersistence = new PersonaPersistence();
             this.export = new Export();
@@ -44,6 +48,11 @@ public class PersonaService implements IPersonaServices {
     @Override
     public Persona insert(Persona persona) {
         personas.add(persona);
+        try {
+            this.personaPersistence.save(persona);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         return persona;
     }
 

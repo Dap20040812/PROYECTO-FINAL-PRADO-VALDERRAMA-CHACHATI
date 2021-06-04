@@ -34,6 +34,7 @@ import java.io.File;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 
+import java.io.IOException;
 import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.Map;
@@ -88,6 +89,7 @@ public class BasicScene extends Application {
 
 
 
+
     private Button addPersona;
     private Button deletePersona;
     private Button openReport;
@@ -124,19 +126,10 @@ public class BasicScene extends Application {
 
     }
 
-    private void behavior(Stage stage) {
-        this.personaServices = new PersonaService();
+    private void behavior(Stage stage) throws IOException, ClassNotFoundException {
+        personaServices = new PersonaService();
 
-        personasTable.setItems((ObservableList<Persona>) this.personaServices.getAll());
-
-        try {
-
-            Persona pe = new Persona("m","c","23","d", Roles.ROLE1_PROTESTANTE,"Muerto","dafa");
-            personaServices.insert(pe);
-
-        } catch (PersonaException personaException) {
-            personaException.printStackTrace();
-        }
+        personasTable.setItems((ObservableList<Persona>) personaServices.getAll());
 
         addPersona.setOnAction(e -> {
 
@@ -211,6 +204,9 @@ public class BasicScene extends Application {
             ageInput.clear();
             professionInput.clear();
             descriptionInput.clear();
+            personasTable.refresh();
+
+            view.fire();
 
 
         });

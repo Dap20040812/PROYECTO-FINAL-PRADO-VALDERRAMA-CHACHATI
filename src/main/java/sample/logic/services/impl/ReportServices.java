@@ -16,7 +16,7 @@ import java.util.Map;
 public class ReportServices implements IReportServices{
 
     private IPersonaServices personasService;
-    private  List<Persona> personas = personasService.getAll();;
+
 
     public ReportServices() {
         personasService = BasicScene.personaServices;
@@ -24,6 +24,7 @@ public class ReportServices implements IReportServices{
 
     public List<Report> getReportPersonasByRole() {
 
+        List<Persona> personas = personasService.getAll();
         return this.getReportPersonasByRole(personas);
     }
 
@@ -67,6 +68,7 @@ public class ReportServices implements IReportServices{
 
     public List<Report> getReportPersonasByStatusDead() {
 
+        List<Persona> personas = personasService.getAll();
         return this.getReportPersonasByStatusDead(personas);
     }
 
@@ -81,26 +83,31 @@ public class ReportServices implements IReportServices{
         reports.add(new Report(Roles.ROLE_COMUNISTA, 0, String.format("Report of count of personas in role %s", Status.MUERTO)));
 
         for (Persona p : personas) {
-            if(reports.get(0).getCriteria().equals(p.getRole()) && reports.get(0).getCriteria().equals(p.getStatus()))
+
+            if(p.getStatus().equals(Status.MUERTO))
             {
-                reports.get(0).incrementCount();
+                if(reports.get(0).getCriteria().equals(p.getRole()))
+                {
+                    reports.get(0).incrementCount();
+                }
+                else if(reports.get(1).getCriteria().equals(p.getRole()))
+                {
+                    reports.get(1).incrementCount();
+                }
+                else if(reports.get(2).getCriteria().equals(p.getRole()))
+                {
+                    reports.get(2).incrementCount();
+                }
+                else if(reports.get(3).getCriteria().equals(p.getRole()))
+                {
+                    reports.get(3).incrementCount();
+                }
+                else if(reports.get(4).getCriteria().equals(p.getRole()))
+                {
+                    reports.get(4).incrementCount();
+                }
             }
-            else if(reports.get(1).getCriteria().equals(p.getRole()) && reports.get(0).getCriteria().equals(p.getStatus()))
-            {
-                reports.get(1).incrementCount();
-            }
-            else if(reports.get(2).getCriteria().equals(p.getRole()) && reports.get(0).getCriteria().equals(p.getStatus()))
-            {
-                reports.get(2).incrementCount();
-            }
-            else if(reports.get(3).getCriteria().equals(p.getRole()) && reports.get(0).getCriteria().equals(p.getStatus()))
-            {
-                reports.get(3).incrementCount();
-            }
-            else if(reports.get(4).getCriteria().equals(p.getRole()) && reports.get(0).getCriteria().equals(p.getStatus()))
-            {
-                reports.get(4).incrementCount();
-            }
+
         }
 
         return reports;
@@ -108,6 +115,7 @@ public class ReportServices implements IReportServices{
 
     public List<Report> getReportPersonasByStatusHerido() {
 
+        List<Persona> personas = personasService.getAll();
         return this.getReportPersonasByStatusHerido(personas);
     }
 
@@ -122,34 +130,40 @@ public class ReportServices implements IReportServices{
         reports.add(new Report(Roles.ROLE_COMUNISTA, 0, String.format("Report of count of personas in role %s", Status.HERIDO)));
 
         for (Persona p : personas) {
-            if(reports.get(0).getCriteria().equals(p.getRole()) && reports.get(2).getCriteria().equals(p.getStatus()))
+
+            if(p.getStatus().equals(Status.HERIDO))
             {
-                reports.get(0).incrementCount();
+                if(reports.get(0).getCriteria().equals(p.getRole()))
+                {
+                    reports.get(0).incrementCount();
+                }
+                else if(reports.get(1).getCriteria().equals(p.getRole()))
+                {
+                    reports.get(1).incrementCount();
+                }
+                else if(reports.get(2).getCriteria().equals(p.getRole()))
+                {
+                    reports.get(2).incrementCount();
+                }
+                else if(reports.get(3).getCriteria().equals(p.getRole()))
+                {
+                    reports.get(3).incrementCount();
+                }
+                else if(reports.get(4).getCriteria().equals(p.getRole()))
+                {
+                    reports.get(4).incrementCount();
+                }
             }
-            else if(reports.get(1).getCriteria().equals(p.getRole()) && reports.get(2).getCriteria().equals(p.getStatus()))
-            {
-                reports.get(1).incrementCount();
             }
-            else if(reports.get(2).getCriteria().equals(p.getRole()) && reports.get(2).getCriteria().equals(p.getStatus()))
-            {
-                reports.get(2).incrementCount();
-            }
-            else if(reports.get(3).getCriteria().equals(p.getRole()) && reports.get(2).getCriteria().equals(p.getStatus()))
-            {
-                reports.get(3).incrementCount();
-            }
-            else if(reports.get(4).getCriteria().equals(p.getRole()) && reports.get(2).getCriteria().equals(p.getStatus()))
-            {
-                reports.get(4).incrementCount();
-            }
-        }
+
 
         return reports;
     }
 
     public List<Report> getReportPersonasByAge() {
 
-        return this.getReportPersonasByStatusHerido(personas);
+        List<Persona> personas = personasService.getAll();
+        return this.getReportPersonasByAge(personas);
     }
 
     public List<Report> getReportPersonasByAge(List<Persona> personas) {
@@ -164,19 +178,25 @@ public class ReportServices implements IReportServices{
 
         for (Persona p : personas) {
 
-            if(Integer.parseInt(p.getAge()) < 18)
+            String AgeS = p.getAge();
+            AgeS.trim();
+            int AgeI = Integer.parseInt(AgeS);
+
+            System.out.println(AgeI);
+
+            if(18 > AgeI)
             {
                 reports.get(0).incrementCount();
             }
-            if(Integer.parseInt(p.getAge()) >= 18 && Integer.parseInt(p.getAge()) <= 30)
+            if(18 <= AgeI && 30 >= AgeI)
             {
                 reports.get(1).incrementCount();
             }
-            if(Integer.parseInt(p.getAge()) > 30 && Integer.parseInt(p.getAge()) <= 60)
+            if(31 <= AgeI && 60 >= AgeI)
             {
                 reports.get(2).incrementCount();
             }
-            if(Integer.parseInt(p.getAge()) > 60)
+            if(61 <= AgeI )
             {
                 reports.get(3).incrementCount();
             }

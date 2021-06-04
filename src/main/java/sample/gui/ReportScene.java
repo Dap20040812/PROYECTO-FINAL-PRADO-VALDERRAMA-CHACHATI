@@ -48,6 +48,27 @@ public class ReportScene {
     private Label Dead3;
     private Label Dead4;
     private Label Dead5;
+    private Label Herido;
+    private Label Herido1;
+    private Label Herido2;
+    private Label Herido3;
+    private Label Herido4;
+    private Label Herido5;
+    private Label Age1;
+    private Label Age2;
+    private Label Age3;
+    private Label Age4;
+    private Label Age5;
+    private Label Age6;
+    private Label Age7;
+    private Label Age8;
+
+
+
+
+
+
+
 
 
 
@@ -83,27 +104,27 @@ public class ReportScene {
         VBox hBmx = new VBox();
         hBmx.setPadding(new Insets(0, 0, 0, 0));
         hBmx.setSpacing(10);
-        hBmx.getChildren().addAll(Rol1,NUm1);
+        hBmx.getChildren().addAll(Rol1,NUm1,Dead1,Herido1);
 
         VBox hBdx = new VBox();
         hBdx.setPadding(new Insets(0, 0, 0, 0));
         hBdx.setSpacing(10);
-        hBdx.getChildren().addAll(Rol2,NUm2);
+        hBdx.getChildren().addAll(Rol2,NUm2,Dead2,Herido2);
 
         VBox hBvx = new VBox();
         hBvx.setPadding(new Insets(0, 0, 0, 0));
         hBvx.setSpacing(10);
-        hBvx.getChildren().addAll(Rol3,NUm3);
+        hBvx.getChildren().addAll(Rol3,NUm3,Dead3,Herido3);
 
         VBox hBux = new VBox();
         hBux.setPadding(new Insets(0, 0, 0, 0));
         hBux.setSpacing(10);
-        hBux.getChildren().addAll(Rol4,NUm4);
+        hBux.getChildren().addAll(Rol4,NUm4,Dead4,Herido4);
 
         VBox hBwx = new VBox();
         hBwx.setPadding(new Insets(0, 0, 0, 0));
         hBwx.setSpacing(10);
-        hBwx.getChildren().addAll(Rol5,NUm5);
+        hBwx.getChildren().addAll(Rol5,NUm5,Dead5,Herido5);
 
         HBox hBox = new HBox();
         hBox.setPadding(new Insets(10, 10, 10, 10));
@@ -116,19 +137,54 @@ public class ReportScene {
         hBkx.setSpacing(10);
         hBkx.getChildren().addAll(Dead);
 
+        VBox hBex = new VBox();
+        hBex.setPadding(new Insets(50, 10, 10, 0));
+        hBex.setSpacing(10);
+        hBex.getChildren().addAll(Herido);
+
         VBox hBnx = new VBox();
         hBnx.setPadding(new Insets(50, 10, 10, 10));
         hBnx.setSpacing(10);
-        hBnx.getChildren().addAll(nada,NUm,hBkx);
+        hBnx.getChildren().addAll(nada,NUm,hBkx,hBex);
 
         HBox hBgx = new HBox();
         hBgx.setPadding(new Insets(10, 10, 10, 10));
         hBgx.setSpacing(10);
         hBgx.getChildren().addAll(hBnx,hBox);
 
+        VBox hBqx = new VBox();
+        hBqx.setPadding(new Insets(10, 10, 10, 10));
+        hBqx.setSpacing(10);
+        hBqx.getChildren().addAll(Age1,Age5);
+
+        VBox hBjx = new VBox();
+        hBjx.setPadding(new Insets(10, 10, 10, 10));
+        hBjx.setSpacing(10);
+        hBjx.getChildren().addAll(Age2,Age6);
+
+        VBox hBpx = new VBox();
+        hBpx.setPadding(new Insets(10, 10, 10, 10));
+        hBpx.setSpacing(10);
+        hBpx.getChildren().addAll(Age3,Age7);
+
+        VBox hBzx = new VBox();
+        hBzx.setPadding(new Insets(10, 10, 10, 10));
+        hBzx.setSpacing(10);
+        hBzx.getChildren().addAll(Age4,Age8);
+
+        HBox hBfx = new HBox();
+        hBfx.setPadding(new Insets(10, 10, 10, 10));
+        hBfx.setSpacing(10);
+        hBfx.getChildren().addAll(hBqx,hBjx,hBpx,hBzx);
+
+        VBox hByx = new VBox();
+        hByx.setPadding(new Insets(10, 10, 10, 10));
+        hByx.setSpacing(10);
+        hByx.getChildren().addAll(hBgx,hBfx);
+
 
         VBox layout = new VBox(10);
-        layout.getChildren().add(hBgx);
+        layout.getChildren().add(hByx);
         layout.setBackground(background);
 
         scene = new Scene(layout, 200, 200);
@@ -143,6 +199,24 @@ public class ReportScene {
         this.NUm3.setText(""+this.reportServices.getReportPersonasByRole().get(2).getCount());
         this.NUm4.setText(""+this.reportServices.getReportPersonasByRole().get(3).getCount());
         this.NUm5.setText(""+this.reportServices.getReportPersonasByRole().get(4).getCount());
+
+        this.Dead1.setText(""+this.reportServices.getReportPersonasByStatusDead().get(0).getCount());
+        this.Dead2.setText(""+this.reportServices.getReportPersonasByStatusDead().get(1).getCount());
+        this.Dead3.setText(""+this.reportServices.getReportPersonasByStatusDead().get(2).getCount());
+        this.Dead4.setText(""+this.reportServices.getReportPersonasByStatusDead().get(3).getCount());
+        this.Dead5.setText(""+this.reportServices.getReportPersonasByStatusDead().get(4).getCount());
+
+        this.Herido1.setText(""+this.reportServices.getReportPersonasByStatusHerido().get(0).getCount());
+        this.Herido2.setText(""+this.reportServices.getReportPersonasByStatusHerido().get(1).getCount());
+        this.Herido3.setText(""+this.reportServices.getReportPersonasByStatusHerido().get(2).getCount());
+        this.Herido4.setText(""+this.reportServices.getReportPersonasByStatusHerido().get(3).getCount());
+        this.Herido5.setText(""+this.reportServices.getReportPersonasByStatusHerido().get(4).getCount());
+
+        this.Age5.setText(""+this.reportServices.getReportPersonasByAge().get(0).getCount());
+        this.Age6.setText(""+this.reportServices.getReportPersonasByAge().get(1).getCount());
+        this.Age7.setText(""+this.reportServices.getReportPersonasByAge().get(2).getCount());
+        this.Age8.setText(""+this.reportServices.getReportPersonasByAge().get(3).getCount());
+
 
     }
     private void setText(){
@@ -244,20 +318,140 @@ public class ReportScene {
                 BorderWidths.DEFAULT)));
 
         Dead1 = new Label("");
-        Dead1.setFont(new Font("Constantia",30));
+        Dead1.setFont(new Font("Constantia",80));
         Dead1.setBackground(background11);
         Dead1.setBorder(new Border(new BorderStroke(Color.BLACK,BorderStrokeStyle.SOLID,
                 CornerRadii.EMPTY,
                 BorderWidths.DEFAULT)));
 
-        Dead = new Label("# De Muertos");
-        Dead.setFont(new Font("Impact",30));
-        Dead.setBackground(background1);
-        Dead.setBorder(new Border(new BorderStroke(Color.BLACK,BorderStrokeStyle.SOLID,
+        Dead2 = new Label("");
+        Dead2.setFont(new Font("Constantia",80));
+        Dead2.setBackground(background11);
+        Dead2.setBorder(new Border(new BorderStroke(Color.BLACK,BorderStrokeStyle.SOLID,
                 CornerRadii.EMPTY,
                 BorderWidths.DEFAULT)));
 
+        Dead2 = new Label("");
+        Dead2.setFont(new Font("Constantia",80));
+        Dead2.setBackground(background11);
+        Dead2.setBorder(new Border(new BorderStroke(Color.BLACK,BorderStrokeStyle.SOLID,
+                CornerRadii.EMPTY,
+                BorderWidths.DEFAULT)));
 
+        Dead3 = new Label("");
+        Dead3.setFont(new Font("Constantia",80));
+        Dead3.setBackground(background11);
+        Dead3.setBorder(new Border(new BorderStroke(Color.BLACK,BorderStrokeStyle.SOLID,
+                CornerRadii.EMPTY,
+                BorderWidths.DEFAULT)));
+
+        Dead4 = new Label("");
+        Dead4.setFont(new Font("Constantia",80));
+        Dead4.setBackground(background11);
+        Dead4.setBorder(new Border(new BorderStroke(Color.BLACK,BorderStrokeStyle.SOLID,
+                CornerRadii.EMPTY,
+                BorderWidths.DEFAULT)));
+
+        Dead5 = new Label("");
+        Dead5.setFont(new Font("Constantia",80));
+        Dead5.setBackground(background11);
+        Dead5.setBorder(new Border(new BorderStroke(Color.BLACK,BorderStrokeStyle.SOLID,
+                CornerRadii.EMPTY,
+                BorderWidths.DEFAULT)));
+
+        Herido = new Label("# De Heridos");
+        Herido.setFont(new Font("Impact",30));
+        Herido.setBackground(background1);
+        Herido.setBorder(new Border(new BorderStroke(Color.BLACK,BorderStrokeStyle.SOLID,
+                CornerRadii.EMPTY,
+                BorderWidths.DEFAULT)));
+
+        Herido1 = new Label("");
+        Herido1.setFont(new Font("Constantia",80));
+        Herido1.setBackground(background11);
+        Herido1.setBorder(new Border(new BorderStroke(Color.BLACK,BorderStrokeStyle.SOLID,
+                CornerRadii.EMPTY,
+                BorderWidths.DEFAULT)));
+        Herido2 = new Label("");
+        Herido2.setFont(new Font("Constantia",80));
+        Herido2.setBackground(background11);
+        Herido2.setBorder(new Border(new BorderStroke(Color.BLACK,BorderStrokeStyle.SOLID,
+                CornerRadii.EMPTY,
+                BorderWidths.DEFAULT)));
+        Herido3 = new Label("");
+        Herido3.setFont(new Font("Constantia",80));
+        Herido3.setBackground(background11);
+        Herido3.setBorder(new Border(new BorderStroke(Color.BLACK,BorderStrokeStyle.SOLID,
+                CornerRadii.EMPTY,
+                BorderWidths.DEFAULT)));
+        Herido4 = new Label("");
+        Herido4.setFont(new Font("Constantia",80));
+        Herido4.setBackground(background11);
+        Herido4.setBorder(new Border(new BorderStroke(Color.BLACK,BorderStrokeStyle.SOLID,
+                CornerRadii.EMPTY,
+                BorderWidths.DEFAULT)));
+        Herido5 = new Label("");
+        Herido5.setFont(new Font("Constantia",80));
+        Herido5.setBackground(background11);
+        Herido5.setBorder(new Border(new BorderStroke(Color.BLACK,BorderStrokeStyle.SOLID,
+                CornerRadii.EMPTY,
+                BorderWidths.DEFAULT)));
+
+        Age1 = new Label("# De Menores de edad(menos-18)");
+        Age1.setFont(new Font("Impact",30));
+        Age1.setBackground(background1);
+        Age1.setBorder(new Border(new BorderStroke(Color.BLACK,BorderStrokeStyle.SOLID,
+                CornerRadii.EMPTY,
+                BorderWidths.DEFAULT)));
+
+        Age2 = new Label("# De Adultos(18-30)");
+        Age2.setFont(new Font("Impact",30));
+        Age2.setBackground(background1);
+        Age2.setBorder(new Border(new BorderStroke(Color.BLACK,BorderStrokeStyle.SOLID,
+                CornerRadii.EMPTY,
+                BorderWidths.DEFAULT)));
+
+        Age3 = new Label("# De Adultos mayores(31-60)");
+        Age3.setFont(new Font("Impact",30));
+        Age3.setBackground(background1);
+        Age3.setBorder(new Border(new BorderStroke(Color.BLACK,BorderStrokeStyle.SOLID,
+                CornerRadii.EMPTY,
+                BorderWidths.DEFAULT)));
+
+        Age4 = new Label("# De Ancianos(61-más)");
+        Age4.setFont(new Font("Impact",30));
+        Age4.setBackground(background1);
+        Age4.setBorder(new Border(new BorderStroke(Color.BLACK,BorderStrokeStyle.SOLID,
+                CornerRadii.EMPTY,
+                BorderWidths.DEFAULT)));
+
+        Age5 = new Label("");
+        Age5.setFont(new Font("Constantia",80));
+        Age5.setBackground(background11);
+        Age5.setBorder(new Border(new BorderStroke(Color.BLACK,BorderStrokeStyle.SOLID,
+                CornerRadii.EMPTY,
+                BorderWidths.DEFAULT)));
+
+        Age6 = new Label("");
+        Age6.setFont(new Font("Constantia",80));
+        Age6.setBackground(background11);
+        Age6.setBorder(new Border(new BorderStroke(Color.BLACK,BorderStrokeStyle.SOLID,
+                CornerRadii.EMPTY,
+                BorderWidths.DEFAULT)));
+
+        Age7 = new Label("");
+        Age7.setFont(new Font("Constantia",80));
+        Age7.setBackground(background11);
+        Age7.setBorder(new Border(new BorderStroke(Color.BLACK,BorderStrokeStyle.SOLID,
+                CornerRadii.EMPTY,
+                BorderWidths.DEFAULT)));
+
+        Age8 = new Label("");
+        Age8.setFont(new Font("Constantia",80));
+        Age8.setBackground(background11);
+        Age8.setBorder(new Border(new BorderStroke(Color.BLACK,BorderStrokeStyle.SOLID,
+                CornerRadii.EMPTY,
+                BorderWidths.DEFAULT)));
     }
 
     private void setUpTableReport() {

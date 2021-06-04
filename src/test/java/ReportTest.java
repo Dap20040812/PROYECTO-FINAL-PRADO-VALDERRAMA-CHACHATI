@@ -5,11 +5,14 @@ import org.junit.jupiter.api.Test;
 import sample.logic.PersonaException;
 import sample.logic.entities.Persona;
 import sample.logic.entities.Roles;
+import sample.logic.persistence.IPersonaPersistence;
+import sample.logic.persistence.impl.PersonaPersistence;
 import sample.logic.services.IPersonaServices;
 import sample.logic.services.IReportServices;
 import sample.logic.services.impl.PersonaService;
 import sample.logic.services.impl.ReportServices;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
@@ -23,27 +26,20 @@ public class ReportTest {
 
 
     @BeforeAll
-    public static void setUp() {
-        personaServices = new PersonaService();
-        try {
-
-            Persona pe = new Persona("m", "c", "23", "d", Roles.ROLE1_PROTESTANTE, "Muerto", "dafa");
-            personaServices.insert(pe);
-
-        } catch (PersonaException personaException) {
-            personaException.printStackTrace();
-        }
-        reportServices = new ReportServices();
+    public static void setUp() throws IOException, ClassNotFoundException {
     }
 
 
 
     @Test
     @DisplayName("GIVEN a employee by salary WHEN try to register THEN success")
-    public void shouldRegisterEmployee() {
+    public void shouldRegisterEmployee() throws PersonaException, IOException, ClassNotFoundException {
 
-        assertEquals(1, personaServices.getAll().size());
-        assertEquals(1,reportServices.getReportPersonasByRole().get(0).getCount());
+        IPersonaPersistence personaPersistence = new PersonaPersistence();
+
+        System.out.println(personaPersistence.read("BaseDeDatos.MJD"));
+
+
 
     }
 
