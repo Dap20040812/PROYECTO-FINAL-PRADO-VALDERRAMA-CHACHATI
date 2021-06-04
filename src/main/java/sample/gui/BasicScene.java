@@ -212,6 +212,7 @@ public class BasicScene extends Application {
             professionInput.clear();
             descriptionInput.clear();
             personasTable.refresh();
+            update.setOpacity(100);
 
             view.fire();
 

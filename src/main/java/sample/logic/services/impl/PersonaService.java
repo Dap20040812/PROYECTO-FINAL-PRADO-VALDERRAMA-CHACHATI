@@ -23,15 +23,18 @@ public class PersonaService implements IPersonaServices {
 
     public PersonaService() throws IOException, ClassNotFoundException {
         this.personas = FXCollections.observableArrayList();
-        /*personaPersistence = new PersonaPersistence();
-        this.personas = personaPersistence.read("BaseDeDatos.MJD");
+        personaPersistence = new PersonaPersistence();
+        if(personaPersistence.read("BaseDeDatos.MJD") != null)
+        {
+            this.personas = personaPersistence.read("BaseDeDatos.MJD");
 
+        }
         try {
             this.personaPersistence = new PersonaPersistence();
             this.export = new Export();
         } catch (IOException e) {
             e.printStackTrace();
-        }*/
+        }
     }
 
     @Override
