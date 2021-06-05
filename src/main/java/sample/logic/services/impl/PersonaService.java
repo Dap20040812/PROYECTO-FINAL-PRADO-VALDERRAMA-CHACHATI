@@ -1,7 +1,6 @@
 package sample.logic.services.impl;
 
 import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import sample.logic.PersonaException;
 import sample.logic.entities.Exportable;
 import sample.logic.entities.Persona;
@@ -47,6 +46,11 @@ public class PersonaService implements IPersonaServices {
         return null;
     }
 
+    /**
+     * Inserta una persona en la lista de personas y la agraga en la persitencia
+     * @param persona
+     * @return la persona guardada
+     */
     @Override
     public Persona insert(Persona persona) {
         personas.add(persona);
@@ -58,12 +62,20 @@ public class PersonaService implements IPersonaServices {
         return persona;
     }
 
+    /**
+     * Elimina la persona de la lista de personas
+     * @param personasToDelete
+     */
     @Override
     public void delete(List<Persona> personasToDelete) {
 
         personasToDelete.forEach(this.personas::remove);
     }
 
+    /**
+     * Exporta la lista de personas a un archivo csv
+     * @throws Exception
+     */
     @Override
     public void export() throws Exception {
         List<Exportable> e = new ArrayList<>();
@@ -71,6 +83,12 @@ public class PersonaService implements IPersonaServices {
         this.export.export(e, Exportable.CSV);
     }
 
+    /**
+     * importa a las personas de un archivo csv
+     * @param file
+     * @return la lista de personas importada
+     * @throws Exception
+     */
     @Override
     public List<Persona> importPersonas(File file) throws Exception {
         List<Persona> importedPersonas = new ArrayList<>();
@@ -86,6 +104,18 @@ public class PersonaService implements IPersonaServices {
         return importedPersonas;
     }
 
+    /**
+     * actualiza a una persona de la lista de personas
+     * @param name
+     * @param LastName
+     * @param age
+     * @param profession
+     * @param role
+     * @param status
+     * @param description
+     * @param persona
+     * @throws PersonaException
+     */
     @Override
     public void update(String name , String LastName , String age, String profession , String role , String status , String description, Persona persona) throws PersonaException {
 

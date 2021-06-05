@@ -50,6 +50,11 @@ public class PersonaPersistence implements IPersonaPersistence {
         }
     }
 
+    /**
+     * Guarda a la persona en el archivo de persistencia
+     * @param persona
+     * @throws IOException
+     */
     @Override
     public void save(Persona persona) throws IOException {
 
@@ -106,6 +111,13 @@ public class PersonaPersistence implements IPersonaPersistence {
         }
     }
 
+    /**
+     * lee el archivo de persistencia
+     * @param path
+     * @return la lista de personas del guardadas en el archivo de persistencia
+     * @throws IOException
+     * @throws ClassNotFoundException
+     */
     @Override
     public List<Persona> read(String path) throws IOException, ClassNotFoundException {
 
@@ -173,7 +185,12 @@ public class PersonaPersistence implements IPersonaPersistence {
         return result;
     }
 
-
+    /**
+     * importa a las personas desde un archivo de persistencia
+     * @param file
+     * @return la lista de datos en string
+     * @throws Exception
+     */
     @Override
     public List<String> importPersonas(File file) throws Exception {
 
@@ -193,27 +210,4 @@ public class PersonaPersistence implements IPersonaPersistence {
         return personas;
     }
 
-    private List<Persona> readPersonasWithMJDExtension(ObjectInputStream in) throws IOException, ClassNotFoundException {
-
-        List<Persona> result = FXCollections.observableArrayList();
-
-        if(in != null)
-        {
-            try {
-                while (true) {
-                    result.add((Persona) in.readObject());
-                }
-            } catch (EOFException | NullPointerException e) {
-                System.out.println("Reached end of file");
-            } finally {
-                in.close();
-            }
-        }
-        else
-        {
-            result = null;
-        }
-
-        return result;
-    }
 }

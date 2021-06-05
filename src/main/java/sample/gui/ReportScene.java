@@ -88,6 +88,7 @@ public class ReportScene {
 
         stage.setTitle("Report");
         stage.setScene(scene);
+        stage.setFullScreen(true);
         stage.show();
     }
 

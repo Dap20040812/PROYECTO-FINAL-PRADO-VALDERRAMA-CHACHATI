@@ -23,7 +23,6 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import sample.logic.PersonaException;
 import sample.logic.entities.Persona;
-import sample.logic.entities.Roles;
 import sample.logic.services.IPersonaServices;
 import sample.logic.services.impl.PersonaService;
 import javafx.scene.image.Image;
@@ -38,9 +37,6 @@ import java.io.IOException;
 import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.Map;
-
-
-import static javafx.scene.control.cell.ComboBoxTableCell.forTableColumn;
 
 public class BasicScene extends Application {
 
@@ -78,21 +74,9 @@ public class BasicScene extends Application {
     private Label description2;
     private Label photo;
     private Label photo1;
-    private Label photo2;
     private MediaPlayer mediaPlayer;
     private String imageurl ="/1.png";
     private String imageurl1 ="/1.png";
-
-
-
-
-
-
-
-
-
-
-
     private Button addPersona;
     private Button deletePersona;
     private Button openReport;
@@ -101,7 +85,6 @@ public class BasicScene extends Application {
     private Button apply;
     private Button view;
     private Button addImage;
-    private StackPane group;
     private ImageView imageView;
     private ImageView imageView1;
     private ImageView imageView2;
@@ -113,9 +96,6 @@ public class BasicScene extends Application {
     // Logic Properties
     public static IPersonaServices personaServices;
 
-    public IPersonaServices getPersonaServices() {
-        return personaServices;
-    }
 
     //CRUD -
     @Override
@@ -124,8 +104,9 @@ public class BasicScene extends Application {
         setUp();
         behavior(primaryStage);
 
-        primaryStage.setTitle("No se por el momento");
+        primaryStage.setTitle("Directorio PNC");
         primaryStage.setScene(scene);
+        primaryStage.setFullScreen(true);
         primaryStage.show();
 
     }
@@ -170,7 +151,7 @@ public class BasicScene extends Application {
             role2.setText(personasTable.getSelectionModel().getSelectedItem().getRole());
             status2.setText(personasTable.getSelectionModel().getSelectedItem().getStatus());
             description2.setText(personasTable.getSelectionModel().getSelectedItem().getDescription());
-            imageurl = imageurl1;
+            imageurl = personasTable.getSelectionModel().getSelectedItem().getPhoto();
             photo.setGraphic(new ImageView(imageurl));
             if(personasTable.getSelectionModel().getSelectedItem().getRole().equals("Comunista"))
             {
@@ -292,7 +273,17 @@ public class BasicScene extends Application {
         HBox hBix = new HBox();
         hBix.setPadding(new Insets(10, 30, 10, 10));
         hBix.setSpacing(10);
-        hBix.getChildren().addAll(addPersona,deletePersona,view,openReport,update,addImage,apply);
+        hBix.getChildren().addAll(addPersona,deletePersona,view,update,apply);
+
+        HBox hBpx = new HBox();
+        hBpx.setPadding(new Insets(10, 30, 10, 10));
+        hBpx.setSpacing(10);
+        hBpx.getChildren().addAll(openReport,addImage);
+
+        VBox hBsx = new VBox();
+        hBsx.setPadding(new Insets(10, 30, 10, 10));
+        hBsx.setSpacing(10);
+        hBsx.getChildren().addAll(hBix,hBpx);
 
         VBox hBex = new VBox();
         hBex.setPadding(new Insets(10, 10, 10, 10));
@@ -310,14 +301,14 @@ public class BasicScene extends Application {
         hBbx.getChildren().addAll(hBex,hBox,hBqx);
 
         VBox hBlx = new VBox();
-        hBlx.setPadding(new Insets(80, 0, 0, 0));
+        hBlx.setPadding(new Insets(10, 0, 0, 0));
         hBlx.setSpacing(10);
         hBlx.getChildren().addAll(photo1);
 
         VBox hBkx = new VBox();
         hBkx.setPadding(new Insets(0, 0, 0, 0));
         hBkx.setSpacing(10);
-        hBkx.getChildren().addAll(hBbx,hBix,hBlx);
+        hBkx.getChildren().addAll(hBbx,hBsx,hBlx);
 
         //Layout
         HBox layout = new HBox(10);
@@ -460,14 +451,14 @@ public class BasicScene extends Application {
         description.setFill(Color.GOLD);
 
         name1 = new Label("Name: ");
-        name1.setFont(new Font("Impact",30));
+        name1.setFont(new Font("Impact",20));
         name1.setBackground(background1);
         name1.setBorder(new Border(new BorderStroke(Color.BLACK,BorderStrokeStyle.SOLID,
                 CornerRadii.EMPTY,
                 BorderWidths.DEFAULT)));
 
         name2 = new Label("");
-        name2.setFont(new Font("Constantia",30));
+        name2.setFont(new Font("Constantia",20));
         name2.setBackground(background11);
         name2.setBorder(new Border(new BorderStroke(Color.BLACK,BorderStrokeStyle.SOLID,
                 CornerRadii.EMPTY,
@@ -475,56 +466,56 @@ public class BasicScene extends Application {
 
 
         lastname1 = new Label("LastName:");
-        lastname1.setFont(new Font("Impact",30));
+        lastname1.setFont(new Font("Impact",20));
         lastname1.setBackground(background1);
         lastname1.setBorder(new Border(new BorderStroke(Color.BLACK,BorderStrokeStyle.SOLID,
                 CornerRadii.EMPTY,
                 BorderWidths.DEFAULT)));
 
         lastname2 = new Label("");
-        lastname2.setFont(new Font("Constantia",30));
+        lastname2.setFont(new Font("Constantia",20));
         lastname2.setBackground(background11);
         lastname2.setBorder(new Border(new BorderStroke(Color.BLACK,BorderStrokeStyle.SOLID,
                 CornerRadii.EMPTY,
                 BorderWidths.DEFAULT)));
 
         age1 = new Label("Age:");
-        age1.setFont(new Font("Impact",30));
+        age1.setFont(new Font("Impact",20));
         age1.setBackground(background1);
         age1.setBorder(new Border(new BorderStroke(Color.BLACK,BorderStrokeStyle.SOLID,
                 CornerRadii.EMPTY,
                 BorderWidths.DEFAULT)));
 
         age2 = new Label("");
-        age2.setFont(new Font("Constantia",30));
+        age2.setFont(new Font("Constantia",20));
         age2.setBackground(background11);
         age2.setBorder(new Border(new BorderStroke(Color.BLACK,BorderStrokeStyle.SOLID,
                 CornerRadii.EMPTY,
                 BorderWidths.DEFAULT)));
 
         profession1 = new Label("Profession:");
-        profession1.setFont(new Font("Impact",30));
+        profession1.setFont(new Font("Impact",20));
         profession1.setBackground(background1);
         profession1.setBorder(new Border(new BorderStroke(Color.BLACK,BorderStrokeStyle.SOLID,
                 CornerRadii.EMPTY,
                 BorderWidths.DEFAULT)));
 
         profession2 = new Label("");
-        profession2.setFont(new Font("Constantia",30));
+        profession2.setFont(new Font("Constantia",20));
         profession2.setBackground(background11);
         profession2.setBorder(new Border(new BorderStroke(Color.BLACK,BorderStrokeStyle.SOLID,
                 CornerRadii.EMPTY,
                 BorderWidths.DEFAULT)));
 
         role1 = new Label("Role:");
-        role1.setFont(new Font("Impact",30));
+        role1.setFont(new Font("Impact",20));
         role1.setBackground(background1);
         role1.setBorder(new Border(new BorderStroke(Color.BLACK,BorderStrokeStyle.SOLID,
                 CornerRadii.EMPTY,
                 BorderWidths.DEFAULT)));
 
         role2 = new Label("");
-        role2.setFont(new Font("Constantia",30));
+        role2.setFont(new Font("Constantia",20));
         role2.setBackground(background11);
         role2.setBorder(new Border(new BorderStroke(Color.BLACK,BorderStrokeStyle.SOLID,
                 CornerRadii.EMPTY,
@@ -532,28 +523,28 @@ public class BasicScene extends Application {
 
 
         status1 = new Label("Status:");
-        status1.setFont(new Font("Impact",30));
+        status1.setFont(new Font("Impact",20));
         status1.setBackground(background1);
         status1.setBorder(new Border(new BorderStroke(Color.BLACK,BorderStrokeStyle.SOLID,
                 CornerRadii.EMPTY,
                 BorderWidths.DEFAULT)));
 
         status2 = new Label("");
-        status2.setFont(new Font("Constantia",30));
+        status2.setFont(new Font("Constantia",20));
         status2.setBackground(background11);
         status2.setBorder(new Border(new BorderStroke(Color.BLACK,BorderStrokeStyle.SOLID,
                 CornerRadii.EMPTY,
                 BorderWidths.DEFAULT)));
 
         description2 = new Label("");
-        description2.setFont(new Font("Constantia",30));
+        description2.setFont(new Font("Constantia",20));
         description2.setBackground(background11);
         description2.setBorder(new Border(new BorderStroke(Color.BLACK,BorderStrokeStyle.SOLID,
                 CornerRadii.EMPTY,
                 BorderWidths.DEFAULT)));
 
         description1 = new Label("Description");
-        description1.setFont(new Font("Impact",30));
+        description1.setFont(new Font("Impact",20));
         description1.setBackground(background1);
         description1.setAlignment(Pos.CENTER);
         description1.setBorder(new Border(new BorderStroke(Color.BLACK,BorderStrokeStyle.SOLID,

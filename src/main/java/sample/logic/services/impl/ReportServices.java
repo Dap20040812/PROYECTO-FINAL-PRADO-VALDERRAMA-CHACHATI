@@ -22,6 +22,10 @@ public class ReportServices implements IReportServices{
         personasService = BasicScene.personaServices;
     }
 
+    /**
+     * reliaza el reporte del numero de personas por rol de la lista de personas
+     * @return la lista de reportes
+     */
     public List<Report> getReportPersonasByRole() {
 
         List<Persona> personas = personasService.getAll();
@@ -66,6 +70,10 @@ public class ReportServices implements IReportServices{
 
     }
 
+    /**
+     * reliaza el reporte del numero de personas muertas por role
+     * @return retorna la lista de reportes
+     */
     public List<Report> getReportPersonasByStatusDead() {
 
         List<Persona> personas = personasService.getAll();
@@ -112,7 +120,10 @@ public class ReportServices implements IReportServices{
 
         return reports;
     }
-
+    /**
+     * reliaza el reporte del numero de personas heridas por role
+     * @return retorna la lista de reportes
+     */
     public List<Report> getReportPersonasByStatusHerido() {
 
         List<Persona> personas = personasService.getAll();
@@ -160,6 +171,10 @@ public class ReportServices implements IReportServices{
         return reports;
     }
 
+    /**
+     * realiza el reporte de perosnas por diferentes categorias de edad
+     * @return la lista de reportes
+     */
     public List<Report> getReportPersonasByAge() {
 
         List<Persona> personas = personasService.getAll();

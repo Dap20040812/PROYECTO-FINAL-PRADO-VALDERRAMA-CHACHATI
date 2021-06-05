@@ -80,6 +80,12 @@ public class Persona extends Exportable implements Serializable {
         this.name = name;
     }
 
+
+    /**
+     * Reviza que la edad de la persona sea real
+     * @param ageInput
+     * @throws PersonaException
+     */
     public void setAge(String ageInput) throws PersonaException {
         try {
             int age = Integer.parseInt(ageInput);
