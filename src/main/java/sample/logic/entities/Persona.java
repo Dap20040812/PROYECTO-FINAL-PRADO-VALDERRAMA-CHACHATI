@@ -18,9 +18,9 @@ public class Persona extends Exportable implements Serializable {
     private String status;
     private String description;
     private String photo;
-    private String music;
+    private String responsable;
 
-    public Persona(String name, String lastName, String age, String profession, String role, String status, String description, String photo, String music) throws PersonaException {
+    public Persona(String name, String lastName, String age, String profession, String role, String status, String description, String photo, String responsable) throws PersonaException {
         this.name = name;
         this.lastName = lastName;
         this.profession = profession;
@@ -28,8 +28,8 @@ public class Persona extends Exportable implements Serializable {
         this.status = status;
         this.description = description;
         this.photo = photo;
-        this.music = music;
         this.setAge(age);
+        this.responsable = responsable;
     }
 
 
@@ -82,12 +82,12 @@ public class Persona extends Exportable implements Serializable {
         this.name = name;
     }
 
-    public String getMusic() {
-        return music;
+    public String getResponsable() {
+        return responsable;
     }
 
-    public void setMusic(String music) {
-        this.music = music;
+    public void setResponsable(String responsable) {
+        this.responsable = responsable;
     }
 
     /**
@@ -120,7 +120,7 @@ public class Persona extends Exportable implements Serializable {
     @Override
     public String toString() {
 
-        return String.format("Name = %s, LastName = %s, Age = %s, Profession = %s, Role = %s, Status = %s, Description = %s, Photo = %s, Music = %s", this.name, this.lastName, this.age, this.profession,this.role,this.status,this.description,this.photo,this.music);
+        return String.format("Name = %s, LastName = %s, Age = %s, Profession = %s, Role = %s, Status = %s, Description = %s, Photo = %s, responsable = %s", this.name, this.lastName, this.age, this.profession,this.role,this.status,this.description,this.photo,this.responsable);
     }
 
     @Override
@@ -134,7 +134,7 @@ public class Persona extends Exportable implements Serializable {
         result.add(this.status);
         result.add(this.description);
         result.add(this.photo);
-        result.add(this.music);
+        result.add(this.responsable);
 
         return result;
     }
@@ -142,6 +142,6 @@ public class Persona extends Exportable implements Serializable {
     @Override
     public String getHeader() {
 
-        return "name,LastName,age,profession,role,status,description,photo,music";
+        return "name,LastName,age,profession,role,status,description,photo,responsable";
     }
 }

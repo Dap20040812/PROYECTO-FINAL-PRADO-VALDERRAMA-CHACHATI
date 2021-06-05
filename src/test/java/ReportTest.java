@@ -29,8 +29,8 @@ public class ReportTest {
     public static void setUp() throws IOException, ClassNotFoundException, PersonaException {
 
         personaServices = new PersonaService();
-        p1 = new Persona("Miguel","Chachati","28","No tiene","Comunista","Invalido como Miguel","Increible","/2.png");
-        p2 = new Persona("Miguel","Chachati","24","No tiene","Comunista","Invalido como Miguel","Increible","/2.png");
+        p1 = new Persona("Miguel","Chachati","28","No tiene","Comunista","Invalido como Miguel","Increible","/2.png","no aplica");
+        p2 = new Persona("Miguel","Chachati","24","No tiene","Comunista","Invalido como Miguel","Increible","/2.png","no aplica");
 
     }
 
@@ -50,7 +50,7 @@ public class ReportTest {
     public void shouldUpdatePersona() throws PersonaException {
 
 
-        Persona p = new Persona("d","e","23","45","Politico","MUerto","d","/1.png");
+        Persona p = new Persona("d","e","23","45","Politico","MUerto","d","/1.png","no aplica");
         personaServices.update("d","e","23","45","Politico","MUerto","d",personaServices.getAll().get(0));
         assertEquals(p.getName(),personaServices.getAll().get(0).getName());
         assertEquals(p.getLastName(),personaServices.getAll().get(0).getLastName());
