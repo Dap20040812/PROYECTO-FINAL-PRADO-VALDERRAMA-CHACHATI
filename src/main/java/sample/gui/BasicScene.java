@@ -39,7 +39,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class BasicScene extends Application {
-  private String option = "No Aplica";
+
     // Visual Properties
     private Scene scene;
     private TableView<Persona> personasTable;
@@ -50,9 +50,6 @@ public class BasicScene extends Application {
     private TextField professionInput;
     private ComboBox<String> roleInput;
     private ComboBox<String> statusInput;
-
-    private ComboBox<String> responsableInput;   // responsable sustentacion
-
     private TextField descriptionInput;
     private Text name;
     private Text lastname;
@@ -61,7 +58,7 @@ public class BasicScene extends Application {
     private Text role;
     private Text status;
     private Text description;
-    private Text responsable;  // sutentacion
+    private Text genderText;
     private Label name1;
     private Label name2;
     private Label lastname1;
@@ -78,8 +75,7 @@ public class BasicScene extends Application {
     private Label description2;
     private Label photo;
     private Label photo1;
-    private Label responsable1;
-    private Label responsable2;
+    private Label photo3;
     private MediaPlayer mediaPlayer;
     private String imageurl ="/1.png";
     private String imageurl1 ="/1.png";
@@ -91,10 +87,12 @@ public class BasicScene extends Application {
     private Button apply;
     private Button view;
     private Button addImage;
-    private Button done;  // sustentacion
     private ImageView imageView;
     private ImageView imageView1;
     private ImageView imageView2;
+    private ImageView imageView3;
+    private ComboBox<String> gender;
+
 
     // Menu
     private MenuBar menuBar;
@@ -127,33 +125,15 @@ public class BasicScene extends Application {
 
             try {
 
-                Persona p = new Persona(nameInput.getText(), lastNameInput.getText(), ageInput.getText(),professionInput.getText(),roleInput.getValue(),statusInput.getValue(),descriptionInput.getText(),imageurl1,option);
+                Persona p = new Persona(nameInput.getText(), lastNameInput.getText(), ageInput.getText(),professionInput.getText(),roleInput.getValue(),statusInput.getValue(),descriptionInput.getText(),imageurl1,gender.getValue());
                 this.personaServices.insert(p);
                 nameInput.clear();
                 lastNameInput.clear();
                 ageInput.clear();
                 professionInput.clear();
                 descriptionInput.clear();
-
             } catch (PersonaException personaException) {
                 personaException.printStackTrace();
-            }
-            if(statusInput.getValue().equals("Muerto")){
-                responsable.setOpacity(100);
-                responsableInput.setOpacity(100);
-                addPersona.setOpacity(0);
-                deletePersona.setOpacity(0);
-                view.setOpacity(0);
-                update.setOpacity(0);
-                openReport.setOpacity(0);
-                addImage.setOpacity(0);
-                for(Persona p: personaServices.getAll()){
-
-                    responsableInput.getItems().addAll("" + p.getName() + " " + p.getLastName());
-
-                }
-
-
             }
         });
 
@@ -162,18 +142,6 @@ public class BasicScene extends Application {
             this.personaServices.delete(personasTable.getSelectionModel().getSelectedItems());
         });
 
-        done.setOnAction(e -> {
-
-            personaServices.getAll().get(this.personaServices.getAll().size()-1).setResponsable(responsableInput.getValue());
-            responsable.setOpacity(0);
-            responsableInput.setOpacity(0);
-            addPersona.setOpacity(100);
-            deletePersona.setOpacity(100);
-            view.setOpacity(100);
-            update.setOpacity(100);
-            openReport.setOpacity(100);
-            addImage.setOpacity(100);
-        });
         view.setOnAction(e -> {
 
 
@@ -188,9 +156,12 @@ public class BasicScene extends Application {
             role2.setText(personasTable.getSelectionModel().getSelectedItem().getRole());
             status2.setText(personasTable.getSelectionModel().getSelectedItem().getStatus());
             description2.setText(personasTable.getSelectionModel().getSelectedItem().getDescription());
-            responsable2.setText(personasTable.getSelectionModel().getSelectedItem().getResponsable());
             imageurl = personasTable.getSelectionModel().getSelectedItem().getPhoto();
             photo.setGraphic(new ImageView(imageurl));
+            photo3.setGraphic(new ImageView("/m.png"));
+            if(personasTable.getSelectionModel().getSelectedItem().getGender().equals("Female")){
+                photo3.setGraphic(new ImageView("/f.png"));
+            }
             if(personasTable.getSelectionModel().getSelectedItem().getRole().equals("Comunista"))
             {
                 mediaPlayer.setVolume(1);
@@ -291,26 +262,26 @@ public class BasicScene extends Application {
 
         Background background = new Background(background_fill);
 
-        HBox jBox = new HBox();
-        jBox.setPadding(new Insets(10, 10, 10, 10));
-        jBox.setSpacing(10);
-        jBox.getChildren().addAll(responsable,responsableInput,done);
 
         VBox hBox = new VBox();
         hBox.setPadding(new Insets(10, 10, 10, 10));
         hBox.setSpacing(10);
-        hBox.getChildren().addAll(nameInput,lastNameInput, ageInput,professionInput,roleInput,statusInput,descriptionInput);
+        hBox.getChildren().addAll(nameInput,lastNameInput, ageInput,gender,professionInput,roleInput,statusInput,descriptionInput);
 
         VBox hBnx = new VBox();
         hBnx.setPadding(new Insets(10, 10, 10, 10));
         hBnx.setSpacing(10);
-        hBnx.getChildren().addAll(name1,name2,lastname1,lastname2,age1,age2,profession1,profession2,role1,role2,status1,status2,description1,description2,responsable1,responsable2);
+        hBnx.getChildren().addAll(name1,name2,lastname1,lastname2,age1,age2,profession1,profession2,role1,role2,status1,status2,description1,description2);
+
+        VBox zBnx = new VBox();
+        zBnx.setPadding(new Insets(10, 10, 10, 10));
+        zBnx.setSpacing(10);
+        zBnx.getChildren().addAll(photo,photo3);
 
         HBox hBjx = new HBox();
         hBjx.setPadding(new Insets(10, 10, 10, 10));
         hBjx.setSpacing(10);
-        hBjx.getChildren().addAll(hBnx,photo);
-
+        hBjx.getChildren().addAll(hBnx,zBnx);
 
         HBox hBix = new HBox();
         hBix.setPadding(new Insets(10, 30, 10, 10));
@@ -330,9 +301,9 @@ public class BasicScene extends Application {
         VBox hBex = new VBox();
         hBex.setPadding(new Insets(10, 10, 10, 10));
         hBex.setSpacing(10);
-        hBex.getChildren().addAll(name,lastname,age,profession,role,status,description);
+        hBex.getChildren().addAll(name,lastname,age,genderText,profession,role,status,description);
 
-        HBox hBqx = new HBox();
+        VBox hBqx = new VBox();
         hBqx.setPadding(new Insets(80, 0, 0, 30));
         hBqx.setSpacing(10);
         hBqx.getChildren().addAll(imageView2);
@@ -350,7 +321,7 @@ public class BasicScene extends Application {
         VBox hBkx = new VBox();
         hBkx.setPadding(new Insets(0, 0, 0, 0));
         hBkx.setSpacing(10);
-        hBkx.getChildren().addAll(hBbx,hBsx,jBox);
+        hBkx.getChildren().addAll(hBbx,hBsx,hBlx);
 
         //Layout
         HBox layout = new HBox(10);
@@ -387,12 +358,6 @@ public class BasicScene extends Application {
         deletePersona.setMinHeight(30);
         deletePersona.setBackground(background1);
         deletePersona.setFont(new Font("Impact",20));
-
-        done = new Button("Done");
-        done.setMinWidth(50);
-        done.setMinHeight(30);
-        done.setBackground(background1);
-        done.setFont(new Font("Impact",20));
 
         Edit = new Button("Edit");
         Edit.setMinWidth(50);
@@ -437,15 +402,23 @@ public class BasicScene extends Application {
         Image image = new Image(imageurl);
         Image image1 = new Image("/3.png");
         Image image2 = new Image("/12.gif");
+        Image image3 = new Image("/m.png");
+
         imageView = new ImageView(image);
         imageView1 = new ImageView(image1);
         imageView2 = new ImageView(image2);
+        imageView3 = new ImageView(image3);
         photo = new Label();
         photo.setGraphic(imageView);
         photo.setBorder(new Border(new BorderStroke(Color.GOLD,
                 BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
         photo1 = new Label();
         photo1.setGraphic(imageView1);
+
+        photo3 = new Label();
+        photo3.setGraphic(imageView3);
+        photo3.setBorder(new Border(new BorderStroke(Color.GOLD,
+                BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
 
 
 
@@ -498,10 +471,9 @@ public class BasicScene extends Application {
         description.setFont(new Font("Impact",20));
         description.setFill(Color.GOLD);
 
-        responsable = new Text("responsable:");
-        responsable.setFont(new Font("Impact",20));
-        responsable.setFill(Color.GOLD);
-        responsable.setOpacity(0);
+        genderText = new Text("Description:");
+        genderText.setFont(new Font("Impact",20));
+        genderText.setFill(Color.GOLD);
 
         name1 = new Label("Name: ");
         name1.setFont(new Font("Impact",20));
@@ -514,21 +486,6 @@ public class BasicScene extends Application {
         name2.setFont(new Font("Constantia",20));
         name2.setBackground(background11);
         name2.setBorder(new Border(new BorderStroke(Color.BLACK,BorderStrokeStyle.SOLID,
-                CornerRadii.EMPTY,
-                BorderWidths.DEFAULT)));
-
-
-        responsable1 = new Label("responsable: ");
-        responsable1.setFont(new Font("Impact",20));
-        responsable1.setBackground(background1);
-        responsable1.setBorder(new Border(new BorderStroke(Color.BLACK,BorderStrokeStyle.SOLID,
-                CornerRadii.EMPTY,
-                BorderWidths.DEFAULT)));
-
-        responsable2 = new Label("");
-        responsable2.setFont(new Font("Constantia",20));
-        responsable2.setBackground(background11);
-        responsable2.setBorder(new Border(new BorderStroke(Color.BLACK,BorderStrokeStyle.SOLID,
                 CornerRadii.EMPTY,
                 BorderWidths.DEFAULT)));
 
@@ -654,11 +611,12 @@ public class BasicScene extends Application {
         descriptionInput.setMinWidth(30);
         descriptionInput.setMinHeight(100);
 
-        responsableInput = new ComboBox<String>();
-        responsableInput.setPromptText("responsable");
-        responsableInput.setMinWidth(30);
-        responsableInput.setMinHeight(100);
-        responsableInput.setOpacity(0);
+        gender = new ComboBox<>();
+        gender.setPromptText("gender");
+        gender.getItems().addAll("Male","Female");
+
+
+
     }
 
     private void setupTable() {
