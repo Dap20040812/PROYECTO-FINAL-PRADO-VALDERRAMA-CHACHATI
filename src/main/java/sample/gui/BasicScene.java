@@ -58,6 +58,7 @@ public class BasicScene extends Application {
     private Text role;
     private Text status;
     private Text description;
+    private Text music;
     private Label name1;
     private Label name2;
     private Label lastname1;
@@ -75,6 +76,8 @@ public class BasicScene extends Application {
     private Label photo;
     private Label photo1;
     private MediaPlayer mediaPlayer;
+    private MediaPlayer mediaPlayer1;
+    private MediaPlayer mediaPlayer2;
     private String imageurl ="/1.png";
     private String imageurl1 ="/1.png";
     private Button addPersona;
@@ -85,9 +88,14 @@ public class BasicScene extends Application {
     private Button apply;
     private Button view;
     private Button addImage;
+    private Button play;
+    private Button stop;
     private ImageView imageView;
     private ImageView imageView1;
     private ImageView imageView2;
+    private ImageView imageView3;
+    private ImageView imageView4;
+    private ComboBox<String> musicItems;
 
     // Menu
     private MenuBar menuBar;
@@ -120,7 +128,7 @@ public class BasicScene extends Application {
 
             try {
 
-                Persona p = new Persona(nameInput.getText(), lastNameInput.getText(), ageInput.getText(),professionInput.getText(),roleInput.getValue(),statusInput.getValue(),descriptionInput.getText(),imageurl1);
+                Persona p = new Persona(nameInput.getText(), lastNameInput.getText(), ageInput.getText(),professionInput.getText(),roleInput.getValue(),statusInput.getValue(),descriptionInput.getText(),imageurl1,musicItems.getValue());
                 this.personaServices.insert(p);
                 nameInput.clear();
                 lastNameInput.clear();
@@ -136,14 +144,25 @@ public class BasicScene extends Application {
 
             this.personaServices.delete(personasTable.getSelectionModel().getSelectedItems());
         });
+        play.setOnAction(e -> {
 
+            mediaPlayer.setVolume(1);
+            mediaPlayer.play();
+        });
+
+        stop.setOnAction(e -> {
+            mediaPlayer.stop();
+            mediaPlayer.setVolume(0);
+        });
         view.setOnAction(e -> {
 
+            Media h = new Media(Paths.get(personasTable.getSelectionModel().getSelectedItem().getMusic()).toUri().toString());
 
-            String s = "22.mp3";
-            Media h = new Media(Paths.get(s).toUri().toString());
             mediaPlayer = new MediaPlayer(h);
             mediaPlayer.stop();
+
+            mediaPlayer.play();
+
             name2.setText(personasTable.getSelectionModel().getSelectedItem().getName());
             lastname2.setText(personasTable.getSelectionModel().getSelectedItem().getLastName());
             age2.setText(personasTable.getSelectionModel().getSelectedItem().getAge());
@@ -153,11 +172,7 @@ public class BasicScene extends Application {
             description2.setText(personasTable.getSelectionModel().getSelectedItem().getDescription());
             imageurl = personasTable.getSelectionModel().getSelectedItem().getPhoto();
             photo.setGraphic(new ImageView(imageurl));
-            if(personasTable.getSelectionModel().getSelectedItem().getRole().equals("Comunista"))
-            {
-                mediaPlayer.setVolume(1);
-                mediaPlayer.play();
-            }
+
 
         });
 
@@ -257,7 +272,7 @@ public class BasicScene extends Application {
         VBox hBox = new VBox();
         hBox.setPadding(new Insets(10, 10, 10, 10));
         hBox.setSpacing(10);
-        hBox.getChildren().addAll(nameInput,lastNameInput, ageInput,professionInput,roleInput,statusInput,descriptionInput);
+        hBox.getChildren().addAll(nameInput,lastNameInput, ageInput,professionInput,roleInput,statusInput,musicItems,descriptionInput);
 
         VBox hBnx = new VBox();
         hBnx.setPadding(new Insets(10, 10, 10, 10));
@@ -288,12 +303,17 @@ public class BasicScene extends Application {
         VBox hBex = new VBox();
         hBex.setPadding(new Insets(10, 10, 10, 10));
         hBex.setSpacing(10);
-        hBex.getChildren().addAll(name,lastname,age,profession,role,status,description);
+        hBex.getChildren().addAll(name,lastname,age,profession,role,status,music,description);
 
-        HBox hBqx = new HBox();
+        HBox hBdfx = new HBox();
+        hBdfx.setPadding(new Insets(0, 0, 0, 0));
+        hBdfx.setSpacing(10);
+        hBdfx.getChildren().addAll(play,stop);
+
+        VBox hBqx = new VBox();
         hBqx.setPadding(new Insets(80, 0, 0, 30));
         hBqx.setSpacing(10);
-        hBqx.getChildren().addAll(imageView2);
+        hBqx.getChildren().addAll(imageView2,hBdfx);
 
         HBox hBbx = new HBox();
         hBbx.setPadding(new Insets(0, 0, 0, 0));
@@ -382,6 +402,14 @@ public class BasicScene extends Application {
         addImage.setMinHeight(30);
         addImage.setBackground(background1);
         addImage.setFont(new Font("Impact",20));
+
+
+
+        play = new Button("play");
+        play.setGraphic(imageView3);
+
+        stop = new Button("stop");
+        stop.setGraphic(imageView4);
     }
     private void setImage()  {
 
@@ -389,9 +417,14 @@ public class BasicScene extends Application {
         Image image = new Image(imageurl);
         Image image1 = new Image("/3.png");
         Image image2 = new Image("/12.gif");
+        Image image3 = new Image("/s.png");
+        Image image4 = new Image("/p.png");
+
         imageView = new ImageView(image);
         imageView1 = new ImageView(image1);
         imageView2 = new ImageView(image2);
+        imageView3 = new ImageView(image3);
+        imageView4 = new ImageView(image4);
         photo = new Label();
         photo.setGraphic(imageView);
         photo.setBorder(new Border(new BorderStroke(Color.GOLD,
@@ -449,6 +482,10 @@ public class BasicScene extends Application {
         description = new Text("Description:");
         description.setFont(new Font("Impact",20));
         description.setFill(Color.GOLD);
+
+        music = new Text("Music:");
+        music.setFont(new Font("Impact",20));
+        music.setFill(Color.GOLD);
 
         name1 = new Label("Name: ");
         name1.setFont(new Font("Impact",20));
@@ -585,6 +622,10 @@ public class BasicScene extends Application {
         descriptionInput.setPromptText("description");
         descriptionInput.setMinWidth(30);
         descriptionInput.setMinHeight(100);
+
+        musicItems = new ComboBox<>();
+        musicItems.setPromptText("Music");
+        musicItems.getItems().addAll("22.mp3","33.mp3","44.mp3");
 
 
     }

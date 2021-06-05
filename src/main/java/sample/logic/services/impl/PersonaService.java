@@ -96,7 +96,7 @@ public class PersonaService implements IPersonaServices {
 
         for (String line : read) {
             String[] tokens = line.split(Exportable.CSV.toString());
-            Persona persona = new Persona(tokens[0], tokens[1], tokens[2], tokens[3],tokens[4],tokens[5],tokens[6],tokens[7]);
+            Persona persona = new Persona(tokens[0], tokens[1], tokens[2], tokens[3],tokens[4],tokens[5],tokens[6],tokens[7],tokens[8]);
             importedPersonas.add(persona);
             this.insert(persona);
         }
